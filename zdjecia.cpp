@@ -1,28 +1,31 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
+vector <string> wektor;
 
-int main() 
-{
-	char* zawartosc;
-	float * num;
-	string szaw;
-	int szerokosc = 0, wysokosc = 0;
-	ifstream Plik("pod.jpg");//, ios::binary);
-	while(Plik.good()) {
-		//			zawartosc = new char[sizeof(float)];
-		//			Plik.read(zawartosc, sizeof(float));
-		//			num = (float*) zawartosc;
-		//			cout << num << endl;
-		//			num = NULL, zawartosc = NULL;
-		Plik >> szaw;
-		cout << szaw << endl;
-		szaw = "";
+void wczytywanieZPliku(string nazwaPliku) {
+	fstream plik;
+	plik.open(nazwaPliku, ios::in | ios::binary);
+	string w;
+	if(plik.good()) {
+		do {
+			plik >> w;
+			wektor.push_back(w);
+		}while(!plik.eof());
 	}
-	cout << "Szerokosc " << szerokosc << "  Wysokosc " << wysokosc << endl;
-	Plik.close();
+	wektor.pop_back();
+	plik.close();
+
+	for(int i = 0; i < (int)wektor.size(); i++) {
+		cout << wektor[i] << endl;
+	}
+}
+
+int main(int argc, char *argv[]) {
+	wczytywanieZPliku(argv[1]);
 	return 0;
 }

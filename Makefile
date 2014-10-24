@@ -1,2 +1,7 @@
+COMPILER	= g++
+
 zdjecia: zdjecia.cpp
-	g++ zdjecia.cpp -o obrazy -Wall
+	$(COMPILER) zdjecia.cpp -o obrazy -Wall -std=c++11
+
+clean:
+	rm -f *.o *stackdump
